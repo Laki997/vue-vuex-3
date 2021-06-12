@@ -2,15 +2,17 @@
   <div id="app">
     <nav class="navbar navbar-light bg-light">
       <router-link to="/movies">Movies</router-link>
+      <movie-search></movie-search>
     </nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import MovieSearch from "./components/MovieSearch.vue";
 export default {
   name: "App",
-  components: {},
+  components: { MovieSearch },
 };
 </script>
 

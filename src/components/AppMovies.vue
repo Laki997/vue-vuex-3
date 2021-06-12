@@ -1,14 +1,18 @@
 <template>
   <div>
     <div>
-      <ul>
-        <movie-row
-          v-for="(movie, index) in allMovies"
-          :key="index"
-          :movie="movie"
-          >Movies</movie-row
-        >
-      </ul>
+      <div>
+        <ul>
+          <div>
+            <movie-row
+              v-for="(movie, index) in allMovies"
+              :key="index"
+              :movie="movie"
+              >Movies</movie-row
+            >
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +26,15 @@ export default {
   components: { MovieRow },
   name: "movies",
   computed: {
-    ...mapGetters({ allMovies: "movies/allMovies" }),
+    ...mapGetters({ allMovies: "movies/filteredMovies" }),
+  },
+
+  watch: {
+    allMovies() {
+      if (!this.allMovies.length) {
+        alert("Nazalost ne postoje filmovi sa navedenim titlom!");
+      }
+    },
   },
 
   methods: {
@@ -30,9 +42,7 @@ export default {
   },
 
   async beforeRouteEnter(to, from, next) {
-    // await this.$store.dispatch("getAllMovies");
     await store.dispatch("movies/getAllMovies");
-    // await movies.dispatch("getAllMovies");
 
     next();
   },

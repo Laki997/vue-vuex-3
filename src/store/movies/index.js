@@ -6,6 +6,8 @@ export default {
   namespaced: true,
   state: () => ({
     allMovies: [],
+
+    searchTerm: "",
   }),
 
   getters,
