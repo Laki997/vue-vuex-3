@@ -10,12 +10,16 @@
               v-for="(movie, index) in allMovies"
               :key="index"
               :movie="movie"
+              :class="{ 'is-complete': selected }"
               v-on:optionChanged="selectedMovies"
               >Movies</movie-row
             >
+            <hr />
           </div>
         </ul>
       </div>
+      <button @click="selectAll" class="btn btn-primary">Select All</button>
+      <button @click="deselectAll" class="btn btn-warning">Deselect All</button>
     </div>
   </div>
 </template>
@@ -29,6 +33,7 @@ export default {
   data() {
     return {
       counter: 0,
+      selected: false,
     };
   },
   components: { MovieRow },
@@ -51,6 +56,15 @@ export default {
       event.target.disabled = true;
       this.counter++;
     },
+    selectAll() {
+      this.$emit("selectAll");
+      this.selected = true;
+    },
+
+    deselectAll() {
+      this.$emit("deselectAll");
+      this.selected = false;
+    },
   },
 
   async beforeRouteEnter(to, from, next) {
@@ -61,4 +75,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.is-complete {
+  background: rgb(255, 0, 71);
+  color: #fff;
+  border: 10px solid;
+}
+</style>

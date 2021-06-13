@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="row" :class="{ 'is-complete': selected }">
+    <div
+      v-on:selectAll="selectAllMovies"
+      class="row"
+      :class="{ 'is-complete': selected }"
+    >
       <li>
         <div class="cell">{{ movie.title }}</div>
         <div class="cell">{{ movie.director }}</div>
@@ -28,6 +32,14 @@ export default {
     optionChanged: function() {
       this.$emit("optionChanged");
       this.selected = true;
+    },
+
+    selectAllMovies() {
+      this.selected = true;
+    },
+
+    deselectAllMovies() {
+      this.selected = false;
     },
   },
 };
